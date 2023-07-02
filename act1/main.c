@@ -23,6 +23,10 @@ int main() {
     printf("%f\n", sqrt(36));
     printf("%f\n", floor(3.4));
     printf("%f\n", ceil(3.4));
-    
+
+    char string[20];
+    fgets(string, 20, stdin);
+    printf("%s", string);
+
     return 0;
-}
+}    
