@@ -34,11 +34,11 @@ int main(int argc, char *argv[]) {
   char input[MAX_BUFF], expression[MAX_BUFF] = "";
   int exLenth = 0;
 
-  printf("Super Simple C Calculator\n");
-  printf("Enter your expression:\n"); 
+  printf("\033[0;33mSuper Simple C Calculator\nEnter your expression: \033[0m");
 
   // Get input
   gets(input);
+  printf("\n");
   
   // Check if expression starts with a number
   if ((int)input[0] == 0 || !(47 < (int)input[0] && (int)input[0] < 58)) { 
