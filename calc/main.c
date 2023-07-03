@@ -7,6 +7,14 @@
 #define DEBUG_ENABLED 1
 #define MAX_BUFF 50 
 
+enum MathOperator {
+  MULTIPLY,
+  DEVIDE,
+  MINUS,
+  PLUS,
+  NONE
+};
+
 #define debug(name, fmt, ...) \
   do { \
     if (DEBUG_ENABLED) { \
@@ -17,26 +25,14 @@
               ##__VA_ARGS__); }; \
   } while (0)        
 
-enum MathOperator {
-  MULTIPLY,
-  DEVIDE,
-  MINUS,
-  PLUS,
-  NONE
-};
-
 float getfloat(char *arr, int size, int *ptr); 
 enum MathOperator getOperator(char *arr, int *ptr);
 float calc(float a, float b, enum MathOperator OPERATOR);
 
 int main(int argc, char *argv[]) {
-
+  printf("\033[0;33mSuper Simple C Calculator\nEnter a mathmatical expression: \033[0m");
   char input[MAX_BUFF], expression[MAX_BUFF] = "";
   int exLenth = 0;
-
-  printf("\033[0;33mSuper Simple C Calculator\nEnter your expression: \033[0m");
-
-  // Get input
   gets(input);
   printf("\n");
   
