@@ -2,10 +2,12 @@
 #include <stdio.h>
 #include <math.h>
 #include <ctype.h>
+#include <stdbool.h>
 
 #define MAX_BUFF 50 
 
-float getNextNum(char *arr, int size, int *lastIndex); 
+float getfloat(char *arr, int size, int *ptr); 
+
 
 #define debug(name, fmt, ...) \
   fprintf(stderr, "\033[0;34m DEBUG %s[%d] %s() - " name " - " fmt "\n\033[0m", \
@@ -18,7 +20,7 @@ int main() {
   char input[MAX_BUFF], expression[MAX_BUFF] = "";
   int exLenth = 0;
   int curIndex = 0;
-  float numA = 0.0;
+  float valA = 0.0, valB = 0.0;
 
   printf("Super Simple C Calculator\n");
   printf("Enter your expression:\n"); 
@@ -49,29 +51,41 @@ int main() {
       exLenth++;
     }  
   }
-
   debug("Filtered Expression","%s", expression);
   debug("Expression Length", "%d", exLenth);
   
-  numA = getNextNum(expression, exLenth, &curIndex);
+  if (curIndex < exLenth) {
+    debug("Current Index", "%d", curIndex);
+    valA = getfloat(expression, exLenth, &curIndex);
+    debug("Current Index", "%d", curIndex);
+  }
 
   return 0;
 }
 
-float getNextNum(char *arr, int size, int *lastIndex) { 
+float getfloat(char *arr, int size, int *ptr) { 
   float f;
+  int d = 0;
   char buf[MAX_BUFF] = "";
-  for (int i = 0; i < size; ++i) 
+  bool isFloat = false;
+
+  for (int i = *ptr; i < size; ++i) 
   {
-    if ((47 < (int)arr[i] && (int)arr[i] < 58) || (int)arr[i] == 46) { 
-      buf[i] = arr[i]; 
-    } else { 
-      *lastIndex = i;
-      break; 
-    }; 
+    if (i == size-1) {*ptr = i+1;};
+    // Copy number characters to buffer
+    if (47 < (int)arr[i] && (int)arr[i] < 58) {
+      buf[i] = arr[i];
+    } else if (arr[i] == '.' && !isFloat) {
+      isFloat = true;
+      buf[i] = arr[i];
+    } else {
+      *ptr = i+1;
+      break;
+    }
   }
-  debug("Buf", "%s", buf);
-  sscanf(buf, "%f", &f);
-  debug("Double Num", "%f", f);
+  debug("Buf value", "%s", buf);
+  (isFloat) ? sscanf(buf, "%f", &f) : sscanf(buf, "%d", &d);
+  f += d;
+  debug("Float value", "%f", f);
   return f;
 }
