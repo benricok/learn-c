@@ -7,14 +7,6 @@
 #define DEBUG_ENABLED 1
 #define MAX_BUFF 50 
 
-enum MathOperator {
-  MULTIPLY,
-  DEVIDE,
-  MINUS,
-  PLUS,
-  NONE
-};
-
 #define debug(name, fmt, ...) \
   do { \
     if (DEBUG_ENABLED) { \
@@ -28,6 +20,8 @@ enum MathOperator {
 float getfloat(char *arr, int size, int *ptr); 
 enum MathOperator getOperator(char *arr, int *ptr);
 float calc(float a, float b, enum MathOperator OPERATOR);
+
+enum MathOperator { MULTIPLY, DEVIDE, PLUS, MINUS, NONE };
 
 int main(int argc, char *argv[]) {
   printf("\033[0;33mSuper Simple C Calculator\nEnter a mathmatical expression: \033[0m");
@@ -49,9 +43,9 @@ int main(int argc, char *argv[]) {
     if ((int)input[i] == 0) { break; };
     
     // Copy characters (, ), *, +, -, ., /, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-    // Convert , to . for numbers with decimals 
     if (39 < (int)input[i] && (int)input[i] < 58) 
     {
+      // Convert , to . for numbers with decimals 
       if ((int)input[i] == 44) { 
         expression[exLenth] = 46;
       } else {
@@ -96,6 +90,7 @@ float getfloat(char *arr, int size, int *ptr) {
   for (int i = *ptr; i < size; ++i) 
   {
     if (i == size-1) { *ptr = i; };                // FIX
+
     // Copy number characters to buffer
     if (47 < (int)arr[i] && (int)arr[i] < 58) {
       buf[j] = arr[i];
@@ -107,12 +102,12 @@ float getfloat(char *arr, int size, int *ptr) {
       ++j;
 
     } else if (arr[i] == '.' && isFloat) {
-
       ++j;
-    } else {
 
+    } else {
       *ptr = i;
       break;
+
     }
   }
 
@@ -126,14 +121,14 @@ enum MathOperator getOperator(char *arr, int *ptr) {
   int i = *ptr;
   *ptr = *ptr + 1;
   switch(arr[i]) {
-    case '/':
-      return DEVIDE;
     case '*':
       return MULTIPLY;
-    case '-':
-      return MINUS;
+    case '/':
+      return DEVIDE;
     case '+':
       return PLUS;
+    case '-':
+      return MINUS;
     default:
       return NONE;
   }
@@ -141,14 +136,14 @@ enum MathOperator getOperator(char *arr, int *ptr) {
 
 float calc(float a, float b, enum MathOperator OPERATOR) {
   switch (OPERATOR) {
-    case DEVIDE:
-      return a / b;
     case MULTIPLY:
       return a * b;
-    case MINUS:
-      return a - b;
+    case DEVIDE:
+      return a / b;
     case PLUS:
       return a + b;
+    case MINUS:
+      return a - b;
     default:
       if (a != 0) { return a; } else { return 0.0; };
       break;
