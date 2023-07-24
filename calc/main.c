@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
   }
   
   // Filter expression for only allowed characters and remove spaces
-  for (int i=0; i < MAX_BUFF; i++) 
+  for (int i = 0; i < MAX_BUFF; i++) 
   {
     // Exit on buffer end
     if ((int)input[i] == 0) { break; };
@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
   debug("Expression Length", "%d", exLenth);
   
   if (curIndex < exLenth-1) {
-    debug("Current Index", "%d", curIndex);
+   debug("Current Index", "%d", curIndex);
     valA = getfloat(expression, exLenth, &curIndex);
   } 
   if (curIndex < exLenth-1) {
@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-// Convert char array of float or integer type to float 
+// Convert char array of float or integer type to float   
 // Note: ignores multiple decimal indicators '.'
 float getfloat(char *arr, int size, int *ptr) { 
   char buf[MAX_BUFF] = "";
@@ -107,7 +107,6 @@ float getfloat(char *arr, int size, int *ptr) {
     } else {
       *ptr = i;
       break;
-
     }
   }
 
