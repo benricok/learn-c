@@ -56,12 +56,14 @@ int main(int argc, char *argv[]) {
   }
 
   int curIndex = 0;
+  int indexState = 0;
   float valA = 0.0, valB = 0.0;
   enum MathOperator operator;
 
   debug("Filtered Expression","%s", expression);
   debug("Expression Length", "%d", exLenth);
-  
+
+  /*
   if (curIndex < exLenth-1) {
    debug("Current Index", "%d", curIndex);
     valA = getfloat(expression, exLenth, &curIndex);
@@ -74,8 +76,36 @@ int main(int argc, char *argv[]) {
     debug("Current Index", "%d", curIndex);
     valB = getfloat(expression, exLenth, &curIndex);
   }
+  valA = calc(valA, valB, operator);
+  */
 
-  printf("\n\033[0;32mResult: %f\n\n\033[0m", calc(valA, valB, operator));
+  for (; curIndex < exLenth-1;) {
+    debug("Current Index", "%d", curIndex);
+    switch (indexState) {
+      case 0:
+        valA = getfloat(expression, exLenth, &curIndex);
+        indexState++;
+        break;
+      case 1:
+        operator = getOperator(expression, &curIndex);
+        indexState++;
+        break;
+      case 2:
+        valB = getfloat(expression, exLenth, &curIndex);
+        valA = calc(valA, valB, operator);
+        indexState++;
+        break;
+      case 3:
+        operator = getOperator(expression, &curIndex);
+        indexState = 2;
+        break;
+      default:
+        break;
+    }
+  }
+
+  //printf("\n\033[0;32mResult: %f\n\n\033[0m", calc(valA, valB, operator));
+  printf("\n\033[0;32mResult: %f\n\n\033[0m", valA);
   return 0;
 }
 
