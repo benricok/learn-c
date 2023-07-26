@@ -63,22 +63,6 @@ int main(int argc, char *argv[]) {
   debug("Filtered Expression","%s", expression);
   debug("Expression Length", "%d", exLenth);
 
-  /*
-  if (curIndex < exLenth-1) {
-   debug("Current Index", "%d", curIndex);
-    valA = getfloat(expression, exLenth, &curIndex);
-  } 
-  if (curIndex < exLenth-1) {
-    debug("Current Index", "%d", curIndex);
-    operator = getOperator(expression, &curIndex);
-  }
-  if (curIndex < exLenth-1) {
-    debug("Current Index", "%d", curIndex);
-    valB = getfloat(expression, exLenth, &curIndex);
-  }
-  valA = calc(valA, valB, operator);
-  */
-
   for (; curIndex < exLenth-1;) {
     debug("Current Index", "%d", curIndex);
     switch (indexState) {
@@ -104,7 +88,6 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  //printf("\n\033[0;32mResult: %f\n\n\033[0m", calc(valA, valB, operator));
   printf("\n\033[0;32mResult: %f\n\n\033[0m", valA);
   return 0;
 }
