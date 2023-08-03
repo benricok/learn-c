@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 #define DEBUG_ENABLED 1
-#define MAX_BUFF 50 
+#define MAX_BUFF 50
 
 #define debug(name, fmt, ...) \
   do { \
@@ -15,9 +15,9 @@
               __LINE__, \
               __func__, \
               ##__VA_ARGS__); }; \
-  } while (0)        
+  } while (0)
 
-float getfloat(char *arr, int size, int *ptr); 
+float getfloat(char *arr, int size, int *ptr);
 enum MathOperator getOperator(char *arr, int *ptr);
 float calc(float a, float b, enum MathOperator OPERATOR);
 
@@ -27,32 +27,32 @@ int main(int argc, char *argv[]) {
   printf("\033[0;33mSuper Simple C Calculator\nEnter a mathmatical expression: \033[0m");
   char input[MAX_BUFF], expression[MAX_BUFF] = "";
   int exLenth = 0;
-  gets(input);
+  fgets(input, MAX_BUFF, stdin);
   printf("\n");
-  
+
   // Check if expression starts with a number
-  if ((int)input[0] == 0 || !(47 < (int)input[0] && (int)input[0] < 58)) { 
+  if ((int)input[0] == 0 || !(47 < (int)input[0] && (int)input[0] < 58)) {
     fprintf(stderr, "\033[0;31mWARNING: Your expression has to start with a number\n\033[0m");
     return 1;
   }
-  
+
   // Filter expression for only allowed characters and remove spaces
-  for (int i = 0; i < MAX_BUFF; i++) 
+  for (int i = 0; i < MAX_BUFF; i++)
   {
     // Exit on buffer end
     if ((int)input[i] == 0) { break; };
-    
+
     // Copy characters (, ), *, +, -, ., /, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
-    if (39 < (int)input[i] && (int)input[i] < 58) 
+    if (39 < (int)input[i] && (int)input[i] < 58)
     {
-      // Convert , to . for numbers with decimals 
-      if ((int)input[i] == 44) { 
+      // Convert , to . for numbers with decimals
+      if ((int)input[i] == 44) {
         expression[exLenth] = 46;
       } else {
         expression[exLenth] = input[i];
       }
       exLenth++;
-    }  
+    }
   }
 
   int curIndex = 0;
@@ -92,15 +92,15 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-// Convert char array of float or integer type to float   
+// Convert char array of float or integer type to float
 // Note: ignores multiple decimal indicators '.'
-float getfloat(char *arr, int size, int *ptr) { 
+float getfloat(char *arr, int size, int *ptr) {
   char buf[MAX_BUFF] = "";
   bool isFloat = false;
   float f = 0.0;
   int d = 0, j = 0;
 
-  for (int i = *ptr; i < size; ++i) 
+  for (int i = *ptr; i < size; ++i)
   {
     if (i == size-1) { *ptr = i; };                // FIX
 
