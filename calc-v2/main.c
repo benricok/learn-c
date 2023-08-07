@@ -3,6 +3,7 @@
 #include <math.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include "string.h"
 
 #define DEBUG_ENABLED 1
 #define MAX_BUFF 50
@@ -20,17 +21,27 @@
 float getfloat(char *arr, int size, int *ptr);
 enum MathOperator getOperator(char *arr, int *ptr);
 float calc(float a, float b, enum MathOperator OPERATOR);
+char * newPrompt();
 
 enum MathOperator { MULTIPLY, DEVIDE, PLUS, MINUS, NONE };
 
 int main(int argc, char *argv[]) {
-  printf("\033[0;33mSuper Simple C Calculator\033[0m");
+  //printf("\033[0;33mSuper Simple C Calculator\033[0m");
 
-  char input[MAX_BUFF], expression[MAX_BUFF] = "";
+  //char input[MAX_BUFF], expression[MAX_BUFF] = "";
   int exLenth = 0;
-  fgets(input, MAX_BUFF, stdin);
-  printf("\n");
+  bool inLoop = true;
 
+  while (inLoop) {
+
+  char *input = newPrompt();
+  char *expression = malloc(MAX_BUFF);
+     
+  if (!memcmp(input, "exit", 4)) {
+    printf("Bye!\n");
+    return 0; 
+  
+  }
   // Check if expression starts with a number
   if ((int)input[0] == 0 || !(47 < (int)input[0] && (int)input[0] < 58)) {
     fprintf(stderr, "\033[0;31mWARNING: Your expression has to start with a number\n\033[0m");
@@ -89,7 +100,10 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  printf("\n\033[0;32mResult: %f\n\n\033[0m", valA);
+  printf("\n\033[0;32mResult: %f\033[0m", valA);
+  free(input);
+  free(expression);
+  }
   return 0;
 }
 
@@ -163,9 +177,11 @@ float calc(float a, float b, enum MathOperator OPERATOR) {
   }
 }
 
-char[MAX_MUFF] newPrompt() {
-  char[MAX_BUFF] buffer = "";
-  prinf("\n\n>>> ");
-  fgetsf(buffer, MAX_BUFF, stdin):
+char * newPrompt() {
+  char *buffer = malloc(MAX_BUFF);
+  printf("\n>>> ");
+  fgets(buffer, MAX_BUFF, stdin);
   return buffer;
 }
+
+
