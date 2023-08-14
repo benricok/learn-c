@@ -1,13 +1,18 @@
 #include <stdio.h>
 
 int main() {
-  int max = 8;
+  int max = 14;
 
-  for (int i = 0; i < max; i++) {
-    for (int j = 0; j < i; j++) {
+  for (int i = 1; i < max; i++) {
+    for (int k = 1; k <= max-i; k++) {
+      printf(" ");
+    }
+
+    for (int j = 1; j <= i; j++) {
       printf("*");
     }
     printf("\n");
   }
   return 0;
 }
+
