@@ -3,15 +3,18 @@
 #include <string.h>
 #include <time.h>
 #include <stdbool.h>
+#include <unistd.h>
 
-#define row 70
-#define col 300
+int row = 50;
+int col = 250;
 
-#define delay 200000
+long delay = 200000;
 
-int aliveNeighbours(int a[row][col], int r, int c); 
+int aliveNeighbours(int a[row][col], int r, int c);
 
-int main()
+void draw(int a[row][col]);
+
+int main(int argc, char *argv[])
 {
     int a[row][col], b[row][col];
     int rnd = 0, liveCells = 0;
@@ -33,14 +36,8 @@ int main()
 
     while (true) {
         if (clock() > startTime + delay) {
-            printf("\e[1;1H\e[2J");
-
-            for (int i = 0; i < row; i++) {
-                for (int j = 0; j < col; j++) {
-                    (a[i][j]) ? printf("#") : printf(" ");
-                }
-                printf("\n");
-            }
+           
+            draw(a);
 
             for (int i = 0; i < row; i++) {
                 for (int j = 0 ; j < col; j++) {
@@ -76,4 +73,27 @@ int aliveNeighbours(int a[row][col], int r, int c) {
         }
     }
     return count;
+}
+
+void draw(int a[row][col]) {
+    printf("\e[1;1H\e[2J");
+    printf(" ┏");
+    for (int i = 0; i < col; i++) {
+        printf("━");
+    }
+
+    printf("┓\n");
+    for (int i = 0; i < row; i++) {
+        printf(" ┃");
+        for (int j = 0; j < col; j++) {
+            (a[i][j]) ? printf("#") : printf(" ");
+        }
+        printf("┃\n");
+    }
+
+    printf(" ┗");
+    for (int i = 0; i < col; i++) {
+        printf("━");
+    }
+    printf("┛\n");
 }
