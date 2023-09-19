@@ -5,11 +5,12 @@
 #define HEIGHT 20
 
 void loop();
-void display(char a[HEIGHT][WIDTH]);
+void display(char a[HEIGHT][WIDTH], int y[WIDTH]);
 void calcProjectile(char a[HEIGHT][WIDTH], int s1, int a1, int s2, int a2);
 void setup(char a[HEIGHT][WIDTH]);
 
 char a[HEIGHT][WIDTH];
+int y[WIDTH]
 
 int main() {
     
@@ -40,9 +41,9 @@ void loop() {
     printf("\nSecond Launch Angle (deg)? ");
     scanf("%d", &secondLaunchAngle);
 
-    calcProjectile(a, firstLaunchSpeed, firstLaunchAngle, secondLaunchSpeed, secondLaunchAngle);
+    calcProjectile(a, y, firstLaunchSpeed, firstLaunchAngle, secondLaunchSpeed, secondLaunchAngle);
 
-    display(a);
+    display(a, y);
 }
 
 void setup(char a[HEIGHT][WIDTH]) {
@@ -65,6 +66,7 @@ void setup(char a[HEIGHT][WIDTH]) {
 
 void calcProjectile(char a[HEIGHT][WIDTH], int s1, int a1, int s2, int a2) {
     
+
 }
 
 void display(char a[HEIGHT][WIDTH]) {
