@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define CLASS_SIZE 4
 
@@ -9,19 +10,23 @@ typedef struct {
 } student;
 
 student class[CLASS_SIZE];
+
 char option; 
 
 // Prototypes
 void PopstudentMarks(student* class, int size);
 void DisplayCertainMarks(student* class, int size);
+void delay(unsigned long milliseconds);
 
-int main(int argc, char *argv[])
+int main()
 {
     while (1) {
-        printf("What do you want to do:\n");
-        printf("1) Populate student marks\n");
-        printf("2) Display certain marks\n"); 
-        printf("Q) Quit\n"); 
+        char option = '0';
+
+        printf("\nWhat do you want to do:\n"
+               "1) Populate student marks\n"
+               "2) Display certain marks\n"
+               "Q) Quit\n"); 
         scanf("%c", &option);
         
         switch (option) {
@@ -36,7 +41,11 @@ int main(int argc, char *argv[])
             case 'Q':
                 return EXIT_SUCCESS;
                 break;
+            default:
+                printf("ERR: invalid option\n");
+                break;
         }
+        delay(1000);
     }
 }
 
@@ -60,4 +69,14 @@ void DisplayCertainMarks(student* class, int size) {
             printf("%d%12s%0.1f", class[i].studentNR, "", class[i].Grade);
         }
     }
+}
+
+void delay(unsigned long milliseconds) {
+    long pause;
+    clock_t now,then;
+
+    pause = milliseconds * (CLOCKS_PER_SEC/1000);
+    now = then = clock();
+    while( (now-then) < pause )
+        now = clock();
 }
